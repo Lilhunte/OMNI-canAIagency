@@ -422,8 +422,7 @@
         };
 
         // Add message to chat
-        const addMessageToChat = (message, sender) => {
-          setMessages((prev) => [
+        const addMessageToChat = React.useCallback((message, sender) => {
             ...prev,
             {
               text: message,
@@ -431,7 +430,7 @@
               timestamp: new Date().toLocaleTimeString(),
             },
           ]);
-        };
+        }, [setMessages]);
 
         // Navigation component
         const Navbar = () => (
@@ -1332,7 +1331,7 @@
           <div className="container mx-auto py-16 sm:py-24 px-4 pt-20 sm:pt-24 fade-in">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-5xl font-bold exo-font gradient-text mb-4">
-                Meet OMNI - Your AI Assistant
+                Meet OMNI - Your AI Automation Assistant
               </h2>
               <p className="text-xl max-w-3xl mx-auto">
                 Interact with our intelligent assistant to get instant answers
@@ -1340,7 +1339,7 @@
               </p>
             </div>
 
-            <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-8">
+            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
               <div className="w-full lg:flex-1 nebula-border">
                 <div className="cosmic-panel p-6 rounded-xl h-full cosmic-glow holographic-overlay">
                   <div
@@ -1586,7 +1585,7 @@
         const renderPage = () => {
           switch (currentPage) {
             case "chat":
- return <Chat />;
+ return <Chat messages={messages} addMessageToChat={addMessageToChat} />;
             case "home": // Default to home for other cases
               return <Home />;
             case "about":
@@ -1595,8 +1594,6 @@
               return <Services />;
             case "pricing":
               return <Pricing />;
-            case "chat":
-              return <Chat />;
             default:
               return <Home />;
           }
