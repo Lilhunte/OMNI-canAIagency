@@ -7,11 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://unpkg.com/@elevenlabs/convai-widget-embed"
-      async
-      type="text/javascript"
-    ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
     <link
@@ -1589,7 +1584,9 @@
         // Render pages
         const renderPage = () => {
           switch (currentPage) {
-            case "home":
+            case "chat":
+ return <Chat />;
+            case "home": // Default to home for other cases
               return <Home />;
             case "about":
               return <About />;
@@ -1597,8 +1594,6 @@
               return <Services />;
             case "pricing":
               return <Pricing />;
-            case "contact":
-              return <Contact />;
             case "chat":
               return <Chat />;
             default:
