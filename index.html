@@ -7,13 +7,17 @@
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://unpkg.com/@elevenlabs/convai-widget-embed"
+      async
+      type="text/javascript"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <script src="https://unpkg.com/elevenlabs-convai"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -28,7 +32,7 @@
       }
 
       body {
- background: linear-gradient(180deg, var(--darker), var(--dark));
+        background: linear-gradient(180deg, var(--darker), var(--dark)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
         background-size: cover;
         color: #e2e8f0;
         font-family: 'Montserrat', sans-serif;
@@ -422,7 +426,8 @@
         };
 
         // Add message to chat
-        const addMessageToChat = React.useCallback((message, sender) => {
+        const addMessageToChat = (message, sender) => {
+          setMessages((prev) => [
             ...prev,
             {
               text: message,
@@ -430,7 +435,7 @@
               timestamp: new Date().toLocaleTimeString(),
             },
           ]);
-        }, [setMessages]);
+        };
 
         // Navigation component
         const Navbar = () => (
@@ -494,10 +499,11 @@
             {/* Hero Section */}
             <div className="min-h-screen flex items-center justify-center flex-col text-center px-4 pt-20 sm:pt-24 relative">
               <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/50 z-0"></div>
-              <video autoPlay
+              <video
+                autoPlay 
                 loop
                 muted
-                playsInline 
+                playsInline
                 className="absolute inset-0 w-full h-full object-cover z-0"
               >
                 <source 
@@ -749,7 +755,7 @@
                 Our Mission & Vision
               </h2> <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Our Team" className="w-full h-64 object-cover rounded-lg mb-6"/>
               <p className="text-xl max-w-3xl mx-auto">
-                We're revolutionizing business operations through intelligent 
+                We're revolutionizing business operations through intelligent
                 automation solutions that drive efficiency and growth.
               </p>
             </div>
@@ -1331,7 +1337,7 @@
           <div className="container mx-auto py-16 sm:py-24 px-4 pt-20 sm:pt-24 fade-in">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-5xl font-bold exo-font gradient-text mb-4">
-                Meet OMNI - Your AI Automation Assistant
+                Meet OMNI - Your AI Assistant
               </h2>
               <p className="text-xl max-w-3xl mx-auto">
                 Interact with our intelligent assistant to get instant answers
@@ -1339,7 +1345,7 @@
               </p>
             </div>
 
-            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
+            <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-8">
               <div className="w-full lg:flex-1 nebula-border">
                 <div className="cosmic-panel p-6 rounded-xl h-full cosmic-glow holographic-overlay">
                   <div
@@ -1584,9 +1590,7 @@
         // Render pages
         const renderPage = () => {
           switch (currentPage) {
-            case "chat":
- return <Chat messages={messages} addMessageToChat={addMessageToChat} />;
-            case "home": // Default to home for other cases
+            case "home":
               return <Home />;
             case "about":
               return <About />;
@@ -1594,6 +1598,10 @@
               return <Services />;
             case "pricing":
               return <Pricing />;
+            case "contact":
+              return <Contact />;
+            case "chat":
+              return <Chat />;
             default:
               return <Home />;
           }
